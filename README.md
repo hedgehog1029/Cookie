@@ -6,7 +6,7 @@ A Minecraft Modpack web backend, for creating and managing modpacks!
 ### Contents
 - [Introduction](#introduction)
 - [Installation](#installation)
-- [Copyright + Licensing](#copyright-+-license)
+- [Copyright + Licensing](#copyright--license)
 
 Introduction
 ======

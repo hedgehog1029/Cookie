@@ -22,7 +22,7 @@ body {
     position: relative;
     margin-bottom: 2em;
     height: 13em;
-    background: #c6b149;
+    background: #E79042;
     font-family: Arial, sans-serif;
 }
 
@@ -83,10 +83,10 @@ body {
     padding-top: 0em;
     width: 4.5em;
     height: 4.5em;
-    border: 5px solid rgba(0,0,0,0.05);
+    border: 5px solid #8B4B2B;
     border-radius: 50%;
     background: none;
-    background-color: #776A2B;
+    background-color: #6c411d;
     color: #1780b4;
     text-align: center;
     font-weight: 700;

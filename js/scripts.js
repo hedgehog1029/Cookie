@@ -13,7 +13,7 @@
 	    classie.add(wrapper, 'opened-nav');
 	  }
 	  else{
-	    this.innerHTML = '<img src="http://i.imgur.com/4KJSwfj.png" width="100%" height="100%" />';
+	    this.innerHTML = '<img src="img/Cookie.png" width="100%" height="100%" />';
 		classie.remove(wrapper, 'opened-nav');
 	  }
 	  open = !open;

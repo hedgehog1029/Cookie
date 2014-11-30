@@ -13,7 +13,7 @@ Introduction
 
 ##### What is Cookie?
 
-Cookie is a Java and Node-based app that helps you manage Minecraft modpacks. It is made up of two parts, a NodeJS-based web frontend to provide a clean and easy to use UI, and a Java-based backend to serve the necessary files.
+Cookie is a JS and Node-based app that helps you manage Minecraft modpacks. It is made up of two parts, a HTML & JS-based web frontend to provide a clean and easy to use UI, and a NodeJS-based backend to serve the necessary files.
 
 ##### How would I use it?
 

@@ -22,7 +22,8 @@ http.createServer(function(req, res) {
             if (fs.existsSync('./' + requestJson['query']['modpack'] + '.json')) {
                 var repo = JSON.parse(fs.readFileSync('./' + requestJson['query']['modpack'] + '.json', 'utf8'));
                 res.writeHead(200, {'Content-Type': 'text/plain'});
-                res.end('{ "modpack": "' + requestJson['query']['modpack'] + '", "file": "' + repo['file'] + '" }');
+                res.end('{ "modpack": "' + requestJson['query']['modpack'] + '", "file": "' + repo['file'] + '", "minecraft": "' + repo['mcver'] + '", "forge": "' + repo['forge'] + '" }');
+                log('Served modpack ' + requestJson['query']['modpack'].green + '.');
             } else {
                 res.writeHead(404, {'Content-Type': 'text/plain'});
                 res.end('Pack not found.');

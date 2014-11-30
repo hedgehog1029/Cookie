@@ -12,7 +12,7 @@ var log = function(msg) {
 }
 
 http.createServer(function(req, res) {
-    console.log(JSON.stringify(urlTools.parse(req.url, true)));
+    //console.log(JSON.stringify(urlTools.parse(req.url, true)));
     //console.log(JSON.parse(JSON.stringify(urlTools.parse(req.url, true))));
     var requestJson = JSON.parse(JSON.stringify(urlTools.parse(req.url, true)));
     

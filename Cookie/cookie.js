@@ -36,5 +36,5 @@ http.createServer(function(req, res) {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Welcome to Cookie!\nThis page doesn\'t do much for you.\n \nInstead, it\'s used for requests for modpacks.')
     }
-}).listen(1338, '127.0.0.1');
+}).listen(1338);
 log('Server running at http://127.0.0.1:1338');

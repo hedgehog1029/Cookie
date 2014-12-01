@@ -6,10 +6,19 @@ var colors = require('colors');
 var http = require('http');
 var urlTools = require('url');
 var fs = require('fs');
+var crypto = require('crypto');
 
 var log = function(msg) {
     console.log(" > cookie: ".magenta + msg);
 }
+
+function checksum (str, algorithm, encoding) {
+    return crypto
+        .createHash(algorithm || 'md5')
+        .update(str, 'utf8')
+        .digest(encoding || 'hex')
+}
+
 
 http.createServer(function(req, res) {
     //console.log(JSON.stringify(urlTools.parse(req.url, true)));
@@ -37,4 +46,42 @@ http.createServer(function(req, res) {
         res.end('Welcome to Cookie!\nThis page doesn\'t do much for you.\n \nInstead, it\'s used for requests for modpacks.')
     }
 }).listen(1338);
-log('Server running at http://127.0.0.1:1338');
+log('JSON server running at http://127.0.0.1:1338');
+
+http.createServer(function(req, res) {
+    var md5Json = JSON.parse(JSON.stringify(urlTools.parse(req.url, true)));
+    
+    if (md5Json['query']['folder'] && md5Json['query']['pack']) {
+        //if (fs.existsSync(md5Json['query']['folder'])) {
+            var files = fs.readdirSync('./packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
+            var file;
+            for (file in files) {
+                var hash = crypto.createHash('md5'), 
+                stream = fs.createReadStream(file);
+
+                stream.on('data', function (data) {
+                    hash.update(data, 'utf8')
+                })
+
+                stream.on('end', function () {
+                    fs.appendFile('./packs/' + md5Json['query']['pack'] + '/hash.json', '{ "' + file + '": "' + hash.digest('hex') + '" }', function(err) { 
+                        //if (err) throw err;
+                        log('Saved ' + 'hash.json'.green) 
+                    });
+                    log(hash.digest('hex'));
+                    log('200 ok'.green);
+                    //res.end(hash.digest('hex')); // 34f7a3113803f8ed3b8fd7ce5656ebec
+                })
+            }
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('200 ok');
+        //} else {
+            //log('not ok: no folder '.red + './packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
+        //}
+    } else {
+        res.writeHead(404, {'Content-Type': 'text/plain'});
+        res.end('You didn\'t specify something! Oops.');
+        log('debug: error 404');
+    }
+}).listen(1340);
+log('MD5 server running at http://127.0.0.1:1340');

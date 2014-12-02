@@ -55,7 +55,7 @@ http.createServer(function(req, res) {
         //if (fs.existsSync(md5Json['query']['folder'])) {
         fs.readdir('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'], function(err, files) {
             if (err) log('not ok, '.red + err);
-            log('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
+            //log('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
             //var file;
             files.forEach( function(file, index, array) {
                 var hash = crypto.createHash('md5'), 
@@ -82,13 +82,13 @@ http.createServer(function(req, res) {
                     }
                     //log('length - 1: ' + (array.length - 1) + ', current index: ' + index);
                     if ((array.length - 1) == index) {
-                        log('appended closing brace');
+                        //log('appended closing brace');
                         fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ' }', function(err) { if (err) throw err; });
                         //Yes this is probably bad but it's the only way that works
                     }
                 });
             });
-            log('200 ok'.green);
+            log('Calculated MD5s of mods folder, writing to' + ' mods.json'.green);
         });
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end('200 ok');

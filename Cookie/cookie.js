@@ -72,13 +72,14 @@ http.createServer(function(req, res) {
                 stream.on('end', function () {
                     fs.appendFile('./packs/' + md5Json['query']['pack'] + '/hash.json', ', "' + file + '": "' + hash.digest('hex') + '"', function(err) { 
                         if (err) throw err;
-                        log('Saved ' + 'hash.json'.green) 
+                        //log('Saved ' + 'hash.json'.green) //spammy
                     });
                     //log(hash.digest('hex')); //apparently this breaks things badly
-                    log('200 ok'.green);
+                    //log('200 ok'.green); //spammy
                     //res.end(hash.digest('hex')); // 34f7a3113803f8ed3b8fd7ce5656ebec
                 });
             });
+            log('200 ok'.green);
         });
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end('200 ok');

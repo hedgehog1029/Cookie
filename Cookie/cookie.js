@@ -54,7 +54,7 @@ http.createServer(function(req, res) {
     if (md5Json['query']['folder'] && md5Json['query']['pack']) {
         //if (fs.existsSync(md5Json['query']['folder'])) {
         fs.readdir('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'], function(err, files) {
-            if (err) log('not ok, ' + err);
+            if (err) log('not ok, '.red + err);
             log('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
             //var file;
             files.forEach( function(file) {
@@ -74,7 +74,7 @@ http.createServer(function(req, res) {
                         //if (err) throw err;
                         log('Saved ' + 'hash.json'.green) 
                     });
-                    log(hash.digest('hex'));
+                    //log(hash.digest('hex'));
                     log('200 ok'.green);
                     //res.end(hash.digest('hex')); // 34f7a3113803f8ed3b8fd7ce5656ebec
                 });

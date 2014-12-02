@@ -54,7 +54,7 @@ http.createServer(function(req, res) {
     if (md5Json['query']['folder'] && md5Json['query']['pack']) {
         //if (fs.existsSync(md5Json['query']['folder'])) {
         fs.readdir('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'], function(err, files) {
-            fs.writeFile('./packs/' + md5Json['query']['pack'] + '/mods.json', '', function(err) { if (err) throw err; log('overwrote ' + 'mods.json'.green); });
+            fs.writeFileSync('./packs/' + md5Json['query']['pack'] + '/mods.json', '');
             if (err) log('not ok, '.red + err);
             //log('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
             //var file;
@@ -73,20 +73,15 @@ http.createServer(function(req, res) {
 
                 stream.on('end', function () {
                     if (index == 0) {
-                        fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', '{ "' + file + '": "' + hash.digest('hex') + '"', function(err) { 
-                            if (err) throw err;
-                        });
+                        fs.appendFileSync('./packs/' + md5Json['query']['pack'] + '/mods.json', '{ "' + file + '": "' + hash.digest('hex') + '"');
                     } else {
-                        fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ', "' + file + '": "' + hash.digest('hex') + '"', function(err) { 
-                            if (err) throw err;
-                            if (err) log(err);
-                        });
+                        fs.appendFileSync('./packs/' + md5Json['query']['pack'] + '/mods.json', ', "' + file + '": "' + hash.digest('hex') + '"');
                     }
                 });
                 log('length - 1: ' + (array.length - 1) + ', current index: ' + index);
                 if ((array.length - 1) == index) {
                         log('appended closing brace');
-                        fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ' }', function(err) { if (err) throw err; });
+                        fs.appendFileSync('./packs/' + md5Json['query']['pack'] + '/mods.json', ' }');
                         //Yes this is probably bad but it's the only way that works
                     }
             });

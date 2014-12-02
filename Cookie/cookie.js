@@ -53,15 +53,20 @@ http.createServer(function(req, res) {
     
     if (md5Json['query']['folder'] && md5Json['query']['pack']) {
         //if (fs.existsSync(md5Json['query']['folder'])) {
-            var files = fs.readdirSync('./packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
+            var files = fs.readdirSync('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
+            log('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
             var file;
-            for (file in files) {
+            files.forEach( function(file) {
                 var hash = crypto.createHash('md5'), 
-                stream = fs.createReadStream(file);
+                stream = fs.createReadStream('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'] + '/' + file);
+                
+                stream.on('error', function(err) {
+                    log('not ok, ' + err);
+                });
 
                 stream.on('data', function (data) {
-                    hash.update(data, 'utf8')
-                })
+                    hash.update(data, 'utf8');
+                });
 
                 stream.on('end', function () {
                     fs.appendFile('./packs/' + md5Json['query']['pack'] + '/hash.json', '{ "' + file + '": "' + hash.digest('hex') + '" }', function(err) { 
@@ -71,8 +76,8 @@ http.createServer(function(req, res) {
                     log(hash.digest('hex'));
                     log('200 ok'.green);
                     //res.end(hash.digest('hex')); // 34f7a3113803f8ed3b8fd7ce5656ebec
-                })
-            }
+                });
+            });
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end('200 ok');
         //} else {

@@ -84,8 +84,8 @@ http.createServer(function(req, res) {
                     }
                 });
                 log('length - 1: ' + (array.length - 1) + ', current index: ' + index);
-                    if ((array.length - 1) == index) {
-                        //log('appended closing brace');
+                if ((array.length - 1) == index) {
+                        log('appended closing brace');
                         fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ' }', function(err) { if (err) throw err; });
                         //Yes this is probably bad but it's the only way that works
                     }

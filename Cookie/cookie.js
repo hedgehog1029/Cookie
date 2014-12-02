@@ -57,7 +57,7 @@ http.createServer(function(req, res) {
             if (err) log('not ok, '.red + err);
             log('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
             //var file;
-            files.forEach( function(file) {
+            files.forEach( function(file, index, array) {
                 var hash = crypto.createHash('md5'), 
                 stream = fs.createReadStream('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'] + '/' + file);
                 
@@ -70,13 +70,22 @@ http.createServer(function(req, res) {
                 });
 
                 stream.on('end', function () {
-                    fs.appendFile('./packs/' + md5Json['query']['pack'] + '/hash.json', ', "' + file + '": "' + hash.digest('hex') + '"', function(err) { 
-                        if (err) throw err;
-                        //log('Saved ' + 'hash.json'.green) //spammy
-                    });
-                    //log(hash.digest('hex')); //apparently this breaks things badly
-                    //log('200 ok'.green); //spammy
-                    //res.end(hash.digest('hex')); // 34f7a3113803f8ed3b8fd7ce5656ebec
+                    if (!index == 0) {
+                        fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ', "' + file + '": "' + hash.digest('hex') + '"', function(err) { 
+                            if (err) throw err;
+                        });
+                    } else {
+                        fs.writeFile('./packs/' + md5Json['query']['pack'] + '/mods.json', '{ ', function(err) { if (err) throw err; log('overwrote ' + 'mods.json'.green); });
+                        fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', '"' + file + '": "' + hash.digest('hex') + '"', function(err) { 
+                            if (err) throw err;
+                        });
+                    }
+                    //log('length - 1: ' + (array.length - 1) + ', current index: ' + index);
+                    if ((array.length - 1) == index) {
+                        log('appended closing brace');
+                        fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ' }', function(err) { if (err) throw err; });
+                        //Yes this is probably bad but it's the only way that works
+                    }
                 });
             });
             log('200 ok'.green);

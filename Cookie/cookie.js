@@ -70,15 +70,15 @@ http.createServer(function(req, res) {
                 });
 
                 stream.on('end', function () {
-                    if (!index == 0) {
-                        fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ', "' + file + '": "' + hash.digest('hex') + '"', function(err) { 
-                            if (err) throw err;
-                            log(err);
-                        });
-                    } else {
+                    if (index == 0) {
                         fs.writeFile('./packs/' + md5Json['query']['pack'] + '/mods.json', '{ ', function(err) { if (err) throw err; log('overwrote ' + 'mods.json'.green); });
                         fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', '"' + file + '": "' + hash.digest('hex') + '"', function(err) { 
                             if (err) throw err;
+                        });
+                    } else {
+                        fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ', "' + file + '": "' + hash.digest('hex') + '"', function(err) { 
+                            if (err) throw err;
+                            log(err);
                         });
                     }
                     //log('length - 1: ' + (array.length - 1) + ', current index: ' + index);

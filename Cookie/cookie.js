@@ -53,11 +53,10 @@ http.createServer(function(req, res) {
     
     if (md5Json['query']['folder'] && md5Json['query']['pack']) {
         //if (fs.existsSync(md5Json['query']['folder'])) {
-            var files = fs.readdirSync('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']).on('error', function(err) {
-                log('not ok, ' + err);
-            });
+        fs.readdir('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'], function(err, files) {
+            if (err) log('not ok, ' + err);
             log('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
-            var file;
+            //var file;
             files.forEach( function(file) {
                 var hash = crypto.createHash('md5'), 
                 stream = fs.createReadStream('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'] + '/' + file);
@@ -80,6 +79,7 @@ http.createServer(function(req, res) {
                     //res.end(hash.digest('hex')); // 34f7a3113803f8ed3b8fd7ce5656ebec
                 });
             });
+        });
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end('200 ok');
         //} else {

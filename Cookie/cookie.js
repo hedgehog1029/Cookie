@@ -82,13 +82,13 @@ http.createServer(function(req, res) {
                             if (err) log(err);
                         });
                     }
-                    log('length - 1: ' + (array.length - 1) + ', current index: ' + index);
+                });
+                log('length - 1: ' + (array.length - 1) + ', current index: ' + index);
                     if ((array.length - 1) == index) {
                         //log('appended closing brace');
                         fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ' }', function(err) { if (err) throw err; });
                         //Yes this is probably bad but it's the only way that works
                     }
-                });
             });
             log('Calculated MD5s of mods folder, writing to' + ' mods.json'.green);
         });

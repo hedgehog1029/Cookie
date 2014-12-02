@@ -53,7 +53,9 @@ http.createServer(function(req, res) {
     
     if (md5Json['query']['folder'] && md5Json['query']['pack']) {
         //if (fs.existsSync(md5Json['query']['folder'])) {
-            var files = fs.readdirSync('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
+            var files = fs.readdirSync('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']).on('error', function(err) {
+                log('not ok, ' + err);
+            });
             log('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
             var file;
             files.forEach( function(file) {

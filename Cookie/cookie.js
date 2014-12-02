@@ -78,7 +78,7 @@ http.createServer(function(req, res) {
                     } else {
                         fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ', "' + file + '": "' + hash.digest('hex') + '"', function(err) { 
                             if (err) throw err;
-                            log(err);
+                            if (err) log(err);
                         });
                     }
                     //log('length - 1: ' + (array.length - 1) + ', current index: ' + index);

@@ -58,6 +58,7 @@ http.createServer(function(req, res) {
             //log('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
             //var file;
             files.forEach( function(file, index, array) {
+                log('index: ' + index);
                 var hash = crypto.createHash('md5'), 
                 stream = fs.createReadStream('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'] + '/' + file);
                 

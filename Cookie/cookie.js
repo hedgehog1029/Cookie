@@ -73,6 +73,7 @@ http.createServer(function(req, res) {
                     if (!index == 0) {
                         fs.appendFile('./packs/' + md5Json['query']['pack'] + '/mods.json', ', "' + file + '": "' + hash.digest('hex') + '"', function(err) { 
                             if (err) throw err;
+                            log(err);
                         });
                     } else {
                         fs.writeFile('./packs/' + md5Json['query']['pack'] + '/mods.json', '{ ', function(err) { if (err) throw err; log('overwrote ' + 'mods.json'.green); });

@@ -54,22 +54,19 @@ var writeHashes = function(file, hash) {
     fileArray[file] = hash;
 }
 
-var writeHashFile = function(array) {
-    array.forEach( function(file, index, a) {
-        
-    });
-}
-
 http.createServer(function(req, res) {
     var md5Json = JSON.parse(JSON.stringify(urlTools.parse(req.url, true)));
+    
+    var writeHashFile = function(array) {
+        fs.writeFileSync('./packs/' + md5Json['query']['pack'] + '/mods.json', JSON.stringify(array));
+        log('array: ' + JSON.stringify(array));
+        log('updated ' + 'mods.json'.green + ' of pack ' + md5Json['query']['pack'].green );
+    }
     
     if (md5Json['query']['folder'] && md5Json['query']['pack']) {
         //if (fs.existsSync(md5Json['query']['folder'])) {
         fs.readdir('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'], function(err, files) {
-            fs.writeFileSync('./packs/' + md5Json['query']['pack'] + '/mods.json', '');
             if (err) log('not ok, '.red + err);
-            //log('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
-            //var file;
             files.forEach( function(file, index, array) {
                 log('index: ' + index);
                 var hash = crypto.createHash('md5'), 
@@ -84,23 +81,19 @@ http.createServer(function(req, res) {
                 });
 
                 stream.on('end', function () {
-                    if (index == 0) {
-                        fs.appendFileSync('./packs/' + md5Json['query']['pack'] + '/mods.json', '{ "' + file + '": "' + hash.digest('hex') + '"');
-                    } else {
-                        fs.appendFileSync('./packs/' + md5Json['query']['pack'] + '/mods.json', ', "' + file + '": "' + hash.digest('hex') + '"');
-                    }
+                    //writeHashes(file, hash.digest('hex'));
+                    fileArray.push({file: file, hash: hash.digest('hex')});
+                    log('wrote hash of index ' + index);
+                    log('array: ' + JSON.stringify(fileArray));
                 });
-                log('length - 1: ' + (array.length - 1) + ', current index: ' + index);
+                
                 if ((array.length - 1) == index) {
-                        log('appended closing brace');
-                        fs.appendFileSync('./packs/' + md5Json['query']['pack'] + '/mods.json', ' }');
-                        //Yes this is probably bad but it's the only way that works
-                    }
+                    writeHashFile(fileArray);
+                }
             });
-            log('Calculated MD5s of mods folder, writing to' + ' mods.json'.green);
-        });
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end('200 ok');
+        });
         //} else {
             //log('not ok: no folder '.red + './packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder']);
         //}

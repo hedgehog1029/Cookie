@@ -48,6 +48,18 @@ http.createServer(function(req, res) {
 }).listen(1338);
 log('JSON server running at http://127.0.0.1:1338');
 
+var fileArray = []; //yeah sorry I did it wrong but this works better for me
+
+var writeHashes = function(file, hash) {
+    fileArray[file] = hash;
+}
+
+var writeHashFile = function(array) {
+    array.forEach( function(file, index, a) {
+        
+    });
+}
+
 http.createServer(function(req, res) {
     var md5Json = JSON.parse(JSON.stringify(urlTools.parse(req.url, true)));
     

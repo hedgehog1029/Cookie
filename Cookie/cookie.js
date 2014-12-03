@@ -48,18 +48,14 @@ http.createServer(function(req, res) {
 }).listen(1338);
 log('JSON server running at http://127.0.0.1:1338');
 
-var fileArray = []; //yeah sorry I did it wrong but this works better for me
-
-var writeHashes = function(file, hash) {
-    fileArray[file] = hash;
-}
+var fileArray = new Array(); //yeah sorry I did it wrong but this works better for me
 
 http.createServer(function(req, res) {
     var md5Json = JSON.parse(JSON.stringify(urlTools.parse(req.url, true)));
     
     var writeHashFile = function(array) {
         fs.writeFileSync('./packs/' + md5Json['query']['pack'] + '/mods.json', JSON.stringify(array));
-        log('array: ' + JSON.stringify(array));
+        //log('array: ' + JSON.stringify(array));
         log('updated ' + 'mods.json'.green + ' of pack ' + md5Json['query']['pack'].green );
     }
     
@@ -68,7 +64,7 @@ http.createServer(function(req, res) {
         fs.readdir('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'], function(err, files) {
             if (err) log('not ok, '.red + err);
             files.forEach( function(file, index, array) {
-                log('index: ' + index);
+                //log('index: ' + index);
                 var hash = crypto.createHash('md5'), 
                 stream = fs.createReadStream('packs/' + md5Json['query']['pack'] + '/' + md5Json['query']['folder'] + '/' + file);
                 
@@ -83,13 +79,12 @@ http.createServer(function(req, res) {
                 stream.on('end', function () {
                     //writeHashes(file, hash.digest('hex'));
                     fileArray.push({file: file, hash: hash.digest('hex')});
-                    log('wrote hash of index ' + index);
-                    log('array: ' + JSON.stringify(fileArray));
+                    if ((array.length - 1) == index) {
+                        writeHashFile(fileArray);
+                    }
                 });
                 
-                if ((array.length - 1) == index) {
-                    writeHashFile(fileArray);
-                }
+                //log('length: ' + (array.length - 1) + ', index: ' + index);
             });
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end('200 ok');

@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Cookie Web Interface</title>
+        <script src="http://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <script src="http://moddder.webuda.com/cdn/caramel/Caramel.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/animations.css">
+        <link href="css/Caramel.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1>Cookie</h1>
+            <!-- <i class="fa fa-cog fa-fw" id="load"></i> -->
+            <hr>
+            <div class="content">
+                <div class="container-main">
+                    <div class="header rule-bottom">
+                        <h4>Welcome to Cookie's web interface!</h4>
+                    </div>
+                    <div class="subcontainer subcontainer-1 rule-right">
+                        <h5 class="header spacer-margin">Modpacks</h5>
+                        <a href="#" id="btn-new" class="btn success"><i class="fa fa-edit fa-fw fa"></i>&nbsp; New Modpack</a>
+                        <a href="#" id="btn-edit" class="btn warn"><i class="fa fa-wrench fa-fw"></i>&nbsp; Edit Modpack</a>
+                        <a href="#" id="btn-delete" class="btn error"><i class="fa fa-close fa-fw"></i>&nbsp; Delete Modpack</a>
+                        <a id="btn-list" class="btn default"><i class="fa fa-cog fa-fw"></i>&nbsp; List Modpacks</a>
+                    </div>
+                    <div class="subcontainer subcontainer-3">
+                        
+                    </div>
+                </div><!-- End Container-main -->
+            </div><!-- End Content -->
+        </div>
+        <script type="text/javascript">
+            $("#btn-list").click(function() {
+                $.get("http://pelican.ag-n.net:1338/query?modpack=ttb", function(data) { 
+                    alert('page content: ' + data);
+                });
+                $("#list-modpacks").text("");
+            });
+            
+            $("#btn-list").hover(function() {
+                $("#btn-list").children("i").addClass("fa-spin");
+            });
+            
+            $("#btn-list").mouseout(function() {
+                $("#btn-list").children("i").removeClass("fa-spin");
+            });
+        </script>
+    </body>
+</html>

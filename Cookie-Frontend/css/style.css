@@ -25,6 +25,7 @@
 .subcontainer {
     text-align: left;
     color: inherit;
+    display: inline-block;
 }
 
 .rule-right {
@@ -40,19 +41,24 @@
 }
 
 .subcontainer-1 {
-    width: 25%;
+    width: 25% fixed;
 }
 
 .subcontainer-2 {
-    width: 50%;
+    width: 50% fixed;
 }
 
 .subcontainer-3 {
-    width: 75;
+    width: 75% fixed;
 }
 
 .btn {
     cursor: pointer;
+    width: auto;
+}
+
+#btn-edit {
+    width: 43%;
 }
 
 .container-main > p {

@@ -21,7 +21,7 @@
                     <div class="subcontainer subcontainer-1 rule-right">
                         <h5 class="header spacer-margin">Modpacks</h5>
                         <a href="#" id="btn-new" class="btn success"><i class="fa fa-edit fa-fw fa"></i>&nbsp; New Modpack</a>
-                        <a href="#" id="btn-edit" class="btn warn"><i class="fa fa-wrench fa-fw"></i>&nbsp; Edit Modpack</a>
+                        <a href="#" id="btn-edit" class="btn warn"><i class="fa fa-wrench fa-fw"></i>&nbsp; Edit Modpack</a><br/>
                         <a href="#" id="btn-delete" class="btn error"><i class="fa fa-close fa-fw"></i>&nbsp; Delete Modpack</a>
                         <a id="btn-list" class="btn default"><i class="fa fa-cog fa-fw"></i>&nbsp; List Modpacks</a>
                     </div>
@@ -33,7 +33,7 @@
         </div>
         <script type="text/javascript">
             $("#btn-list").click(function() {
-                $.get("http://pelican.ag-n.net:1338/query?modpack=ttb", function(data) { 
+                $.get("http://pelican.ag-n.net:1338/query?modpack=ttb", function(data) {
                     alert('page content: ' + data);
                 });
                 $("#list-modpacks").text("");

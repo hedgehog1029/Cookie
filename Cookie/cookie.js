@@ -37,14 +37,14 @@ http.createServer(function(req, res) {
                 res.writeHead(404, {'Content-Type': 'text/plain'});
                 res.end('Pack not found.');
             }
-        } else if ( requestJson['query']['listpacks'] ) {
-            var list = fs.readFileSync('./packs.json');
-            res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end(list);
         } else {
             res.writeHead(404, {'Content-Type': 'text/plain'});
             res.end('Hey, that tickles! Stop it!\n');
         }
+    } else if ( requestJson['pathname'] == "listpacks" ) {
+        var list = fs.readFileSync('./packs.json');
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end(list);
     } else {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Welcome to Cookie!\nThis page doesn\'t do much for you.\n \nInstead, it\'s used for requests for modpacks.')

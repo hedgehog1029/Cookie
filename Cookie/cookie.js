@@ -42,6 +42,7 @@ http.createServer(function(req, res) {
             res.end('Hey, that tickles! Stop it!\n');
         }
     } else if ( requestJson['pathname'] == "listpacks" ) {
+        console.log("served a" + "listpacks".green + " request");
         var list = fs.readFileSync('./packs.json');
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end(list);

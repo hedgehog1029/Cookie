@@ -24,20 +24,22 @@ http.createServer(function(req, res) {
     //console.log(JSON.stringify(urlTools.parse(req.url, true)));
     //console.log(JSON.parse(JSON.stringify(urlTools.parse(req.url, true))));
     var requestJson = JSON.parse(JSON.stringify(urlTools.parse(req.url, true)));
+    //log('debug: '.red + requestJson['pathname']);
     
     if ( requestJson['query'] ) {
         //res.writeHead(200, {'Content-Type': 'text/json'});
         if ( requestJson['query']['modpack'] ) {
             if (fs.existsSync('./' + requestJson['query']['modpack'] + '.json')) {
                 var repo = JSON.parse(fs.readFileSync('./' + requestJson['query']['modpack'] + '.json', 'utf8'));
-                res.writeHead(200, {'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': *});
+                res.writeHead(200, {'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*'});
                 res.end('{ "modpack": "' + requestJson['query']['modpack'] + '", "file": "' + repo['file'] + '", "minecraft": "' + repo['mcver'] + '", "forge": "' + repo['forge'] + '" }');
                 log('Served modpack ' + requestJson['query']['modpack'].green + '.');
             } else {
                 res.writeHead(404, {'Content-Type': 'text/plain'});
                 res.end('Pack not found.');
             }
-        } else if ( requestJson['query']['listpacks'] ) {
+        } else if ( requestJson['pathname'] == "/listpacks" ) {
+            log("served a" + "listpacks".green + " request");
             var list = fs.readFileSync('./packs.json');
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end(list);

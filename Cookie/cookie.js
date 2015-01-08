@@ -21,10 +21,10 @@ function checksum (str, algorithm, encoding) {
 
 
 http.createServer(function(req, res) {
-    console.log(JSON.stringify(urlTools.parse(req.url, true)));
+    //console.log(JSON.stringify(urlTools.parse(req.url, true)));
     //console.log(JSON.parse(JSON.stringify(urlTools.parse(req.url, true))));
     var requestJson = JSON.parse(JSON.stringify(urlTools.parse(req.url, true)));
-    log('debug: '.red + requestJson['pathname']);
+    //log('debug: '.red + requestJson['pathname']);
     
     if ( requestJson['query'] ) {
         //res.writeHead(200, {'Content-Type': 'text/json'});
@@ -42,11 +42,12 @@ http.createServer(function(req, res) {
             res.writeHead(404, {'Content-Type': 'text/plain'});
             res.end('Hey, that tickles! Stop it!\n');
         }
-    } else if ( requestJson['pathname'] == "/listpacks" ) {
-        log("served a" + "listpacks".green + " request");
-        var list = fs.readFileSync('./packs.json');
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end(list);
+        if ( requestJson['pathname'] == "/listpacks" ) {
+            log("served a" + "listpacks".green + " request");
+            var list = fs.readFileSync('./packs.json');
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end(list);
+        }
     } else {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Welcome to Cookie!\nThis page doesn\'t do much for you.\n \nInstead, it\'s used for requests for modpacks.')

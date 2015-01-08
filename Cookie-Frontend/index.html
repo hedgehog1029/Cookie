@@ -27,7 +27,7 @@
                         <a id="btn-list" class="btn default"><i class="fa fa-cog fa-fw"></i>&nbsp; List Modpacks</a>
                     </div>
                     <div class="subcontainer subcontainer-3">
-                        
+                        <p id="list-modpacks"></p>
                     </div>
                 </div><!-- End Container-main -->
             </div><!-- End Content -->
@@ -35,7 +35,6 @@
         <script type="text/javascript">
             $("#btn-list").click(function() {
                 makeCorsRequest("http://pelican.ag-n.net:1338/listpacks");
-                $("#list-modpacks").text("");
             });
             
             $("#btn-list").hover(function() {

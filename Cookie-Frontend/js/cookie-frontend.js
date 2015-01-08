@@ -16,12 +16,24 @@ function createCORSRequest(method, url) {
 }
 
 function parseJson(response) {
-    return JSON.stringify(JSON.parse(response));
+    return JSON.parse(response);
+}
+
+function sendResponse(value) {
+    var response = parseJson(value);
+    
+    var packs = new Array();
+    for (pack in response["packs"]) {
+        packs.push(response["packs"][pack]["name"]);
+    }
+    $("#list-modpacks").text(packs);
 }
 
 // Make the actual CORS request.
 function makeCorsRequest(url) {
-
+    
+  var response;
+    
   var xhr = createCORSRequest('GET', url);
   if (!xhr) {
     alert('CORS not supported');
@@ -31,7 +43,8 @@ function makeCorsRequest(url) {
   // Response handlers.
   xhr.onload = function() {
     var text = xhr.responseText;
-    alert("Response: " + text);
+    //alert("Response: " + text);
+    sendResponse(text);
   };
 
   xhr.onerror = function() {

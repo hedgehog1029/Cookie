@@ -41,7 +41,7 @@ http.createServer(function(req, res) {
         } else if ( requestJson['pathname'] == "/listpacks" ) {
             log("served a" + "listpacks".green + " request");
             var list = fs.readFileSync('./packs.json');
-            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.writeHead(200, {'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*'});
             res.end(list);
         } else {
             res.writeHead(404, {'Content-Type': 'text/plain'});

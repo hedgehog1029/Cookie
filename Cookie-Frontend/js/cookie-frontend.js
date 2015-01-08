@@ -15,14 +15,12 @@ function createCORSRequest(method, url) {
   return xhr;
 }
 
-// Helper method to parse the title tag from the response.
-function getTitle(text) {
-  return text;
+function parseJson(response) {
+    return JSON.stringify(JSON.parse(response));
 }
 
 // Make the actual CORS request.
 function makeCorsRequest() {
-  // All HTML5 Rocks properties support CORS.
   var url = 'http://pelican.ag-n.net:1338/query?modpack=ttb';
 
   var xhr = createCORSRequest('GET', url);
@@ -34,8 +32,7 @@ function makeCorsRequest() {
   // Response handlers.
   xhr.onload = function() {
     var text = xhr.responseText;
-    var title = getTitle(text);
-    alert('Response from CORS request to ' + url + ': ' + title);
+    alert("Response: " + text);
   };
 
   xhr.onerror = function() {

@@ -20,8 +20,7 @@ function parseJson(response) {
 }
 
 // Make the actual CORS request.
-function makeCorsRequest() {
-  var url = 'http://pelican.ag-n.net:1338/query?modpack=ttb';
+function makeCorsRequest(url) {
 
   var xhr = createCORSRequest('GET', url);
   if (!xhr) {

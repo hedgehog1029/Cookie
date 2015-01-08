@@ -4,6 +4,7 @@
         <script src="http://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <script src="http://moddder.webuda.com/cdn/caramel/Caramel.js" type="text/javascript"></script>
+        <script src="js/cookie-frontend.js"></script>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/animations.css">
         <link href="css/Caramel.css" rel="stylesheet">
@@ -33,9 +34,7 @@
         </div>
         <script type="text/javascript">
             $("#btn-list").click(function() {
-                $.get("http://pelican.ag-n.net:1338/query?modpack=ttb", function(data) {
-                    alert('page content: ' + data);
-                });
+                makeCorsRequest();
                 $("#list-modpacks").text("");
             });
             

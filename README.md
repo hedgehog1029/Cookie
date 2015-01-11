@@ -3,6 +3,9 @@ Cookie
 
 A Minecraft Modpack web backend, for creating and managing modpacks!
 
+* [Cookie (Backend)](https://github.com/hedgehog1029/Cookie/)
+* [Chip (Frontend)](https://github.com/hedgehog1029/Chip/)
+
 ### Contents
 - [Introduction](#introduction)
 - [Installation](#installation)

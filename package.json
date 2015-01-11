@@ -19,7 +19,6 @@
         "cookie"
     ],
     "dependencies": {
-        "request": "~2.51.0",
         "colors": "1.0.3",
         "crypto": "~0.0.3"
     },

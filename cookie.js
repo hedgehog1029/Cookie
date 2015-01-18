@@ -1,7 +1,5 @@
 #!/usr/local/bin/node
 
-//var request = require('request');
-//var program = require('commander');
 var colors = require('colors');
 var http = require('http');
 var urlTools = require('url');

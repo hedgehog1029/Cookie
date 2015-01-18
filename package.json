@@ -1,6 +1,7 @@
 {
     "name": "cookie",
     "version": "0.2.1",
+    "main": "cookie.js",
     "description": "A Minecraft modpack web backend, for creating and managing modpacks!",
     "author": "hedgehog1029/Alchemist, omgredstone@gmail.com",
     "scripts": {
